@@ -27,5 +27,6 @@ jobs:
 
     - name: Build BPF Program
       run: |
-        cd token-program
+        cd src/
         cargo build-bpf
+
