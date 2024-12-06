@@ -1,0 +1,31 @@
+name: Build Solana BPF Program
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Rust
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        source $HOME/.cargo/env
+        rustup install nightly
+        rustup default nightly
+
+    - name: Install Solana Tools
+      run: |
+        sh -c "$(curl -sSfL https://release.solana.com/v1.16.27/install)"
+        export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+
+    - name: Build BPF Program
+      run: |
+        cd src
+        cargo build-bpf
