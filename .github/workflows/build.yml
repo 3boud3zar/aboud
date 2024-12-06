@@ -27,6 +27,6 @@ jobs:
 
     - name: Build BPF Program
       run: |
-        cd new_project/src/
+        cd src/
         cargo build-bpf
 
